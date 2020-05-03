@@ -1,7 +1,7 @@
 args = {...}
 
 programs = {
-    "init"
+    "init",
     "branch-miner"
 }
 
