@@ -17,15 +17,16 @@ end
 function downloadProgram(name)
     print("Downloading " .. name .. " ...")
     
+    local fullName = name .. ".lua"
     local url = generateUrlForProgram(name)
 
     -- Delete the program if it already exists
-    if fs.exists(name) then
-        fs.delete(name)
+    if fs.exists(fullName) then
+        fs.delete(fullName)
     end
 
     -- Download the program
-    local fullName = name .. ".lua"
+
     shell.run("wget", url, fullName)
 
     print("Finished downloading " .. name)
