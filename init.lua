@@ -4,26 +4,31 @@ local programs = {
 }
 
 function main()
-    for name in pairs(programs) do
-        print(name)
-        -- downloadProgram(name)
+    for _, name in ipairs(programs) do
+        downloadProgram(name)
     end
 end
 
--- function generateUrlForProgram(name)
---     local baseUrl = "https://raw.githubusercontent.com/cwenck/cc-turtles/master/"
---     return baseUrl .. name .. ".lua"
--- end
+function generateUrlForProgram(name)
+    local baseUrl = "https://raw.githubusercontent.com/cwenck/cc-turtles/master/"
+    return baseUrl .. name .. ".lua"
+end
 
--- function downloadProgram(name)
---     local url = generateUrlForProgram(name)
+function downloadProgram(name)
+    print("Downloading " .. name .. " ...")
+    
+    local url = generateUrlForProgram(name)
 
---     -- Delete the program if it already exists
---     if fs.exists(name) then
---         fs.delete(name)
---     end
+    -- Delete the program if it already exists
+    if fs.exists(name) then
+        fs.delete(name)
+    end
 
---     -- Download the program
---     local fullName = name .. ".lua"
---     shell.run("wget", url, fullName)
--- end
+    -- Download the program
+    local fullName = name .. ".lua"
+    shell.run("wget", url, fullName)
+
+    print("Finished downloading " .. name)
+end
+
+main()
