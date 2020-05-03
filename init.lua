@@ -25,5 +25,6 @@ function downloadProgram(name)
     end
 
     -- Download the program
-    shell.run("wget", url, name)
+    local fullName = name .. ".lua"
+    shell.run("wget", url, fullName)
 end
