@@ -2,7 +2,7 @@ local programs = {
     "init",
     "branch-miner",
     "digger",
-    "movement"
+    "position"
 }
 
 function main()
