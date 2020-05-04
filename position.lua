@@ -5,7 +5,7 @@ RelativeDirection = {
     LEFT = 3,
 }
 
--------------------------------------------
+-----------------------------------------
 
 -- The fuel values given by different fuel items
 local itemFuelAmounts = {}
@@ -22,7 +22,7 @@ local zOffset = 0
 
 local facing = RelativeDirection.FORWARD
 
--------------------------------------------
+-----------------------------------------
 
 -- Wait for the enter key to be pressed.
 local function waitForEnterKeyPress()
@@ -49,8 +49,8 @@ local function tryRefuelFromSlot(slot, threshold)
     local originalSlot = turtle.getSelectedSlot()
     turtle.select(slot)
 
-    while ~hasFuel(threshold) do
-        if ~turtle.refuel() then
+    while not hasFuel(threshold) do
+        if not turtle.refuel() then
             turtle.select(originalSlot)
             return false
         end
@@ -65,14 +65,14 @@ function refuel(threshold)
     -- Save the originally selected slot
     local originalSlot = turtle.getSelectedSlot()
 
-    while ~hasFuel(threshold) do
+    while not hasFuel(threshold) do
         for slot = 1,16 do
             if tryRefuelFromSlot(slot, threshold) then
                 break
             end
         end
 
-        if ~hasFuel(threshold) then
+        if not hasFuel(threshold) then
             -- No fuel in turtle
             print("In need of fuel.")
             print("Press enter to continue...")
@@ -112,7 +112,7 @@ end
 
 -- Move forward.
 function forward(force)
-    while ~hasAnyFuel() do
+    while not hasAnyFuel() do
         refuelMinimum()
     end
 
@@ -137,7 +137,7 @@ end
 
 -- Move up.
 function up(force)
-    while ~hasAnyFuel() do
+    while not hasAnyFuel() do
         refuelMinimum()
     end
 
@@ -152,7 +152,7 @@ end
 
 -- Move down.
 function down(force)
-    while ~hasAnyFuel() do
+    while not hasAnyFuel() do
         refuelMinimum()
     end
 
