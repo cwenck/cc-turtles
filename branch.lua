@@ -17,7 +17,7 @@ local function loadApis()
 end
 
 local function shouldTorch()
-    return testudo.getX() % torchFrequency == 0
+    return testudo.getX() % torchFrequency == 1
 end
 
 local function placeTorch()
