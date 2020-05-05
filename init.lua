@@ -3,7 +3,8 @@ local programs = {
     "branch-miner",
     "digger",
     "testudo",
-    "util"
+    "util",
+    "branch"
 }
 
 function main()
