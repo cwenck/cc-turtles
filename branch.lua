@@ -43,7 +43,7 @@ local function tunnel()
 end
 
 local function returnTunnel()
-    while testudo.getX() < distance do
+    while testudo.getX() > 0 do
         testudo.forward()
     end
 end
