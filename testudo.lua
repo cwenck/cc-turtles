@@ -1,3 +1,6 @@
+os.loadAPI("util.lua")
+-----------------------------------------
+
 RelativeDirection = {
     FORWARD = 0,
     RIGHT = 1,
@@ -6,6 +9,8 @@ RelativeDirection = {
 }
 
 -----------------------------------------
+
+local debugEnabled = false
 
 -- The fuel values given by different fuel items
 local itemFuelAmounts = {}
@@ -24,6 +29,12 @@ local facing = RelativeDirection.FORWARD
 
 -----------------------------------------
 
+local function debug(msg)
+    if debugEnabled then
+        print(msg)
+    end
+end
+
 -- Wait for the enter key to be pressed.
 local function waitForEnterKeyPress()
     while true do
@@ -32,6 +43,12 @@ local function waitForEnterKeyPress()
             break
         end
     end
+end
+
+local function collectDroppedItems()
+    turtle.suckUp()
+    turtle.suck()
+    turtle.suckDown()
 end
 
 local function hasAnyFuel()
@@ -92,15 +109,19 @@ function dig()
     if turtle.detect() then
         turtle.dig()
     end
+
+    collectDroppedItems()
 end
 
 -- Dig up if there is a block to break.
 function digUp()
-    -- Detect and dig up in a loop to handle falling blocks like gravel
+    -- Detect and dig up in a loop to handle falling blocks
     while turtle.detectUp() do
         turtle.digUp()
         sleep(0.5)
     end
+
+    collectDroppedItems()
 end
 
 -- Dig down if there is a block to break.
@@ -108,11 +129,13 @@ function digDown()
     if turtle.detectDown() then
         turtle.digDown()
     end
+
+    collectDroppedItems()
 end
 
 -- Move forward.
 function forward(force)
-    while not hasAnyFuel() do
+        while not hasAnyFuel() do
         refuelMinimum()
     end
 
@@ -137,6 +160,10 @@ end
 
 -- Move up.
 function up(force)
+    if force == nil then
+        force = true
+    end
+
     while not hasAnyFuel() do
         refuelMinimum()
     end
@@ -191,15 +218,15 @@ function resetFacing()
     facing = RelativeDirection.FORWARD
 end
 
-function getOffsetX()
+function getX()
     return xOffset
 end
 
-function getOffsetY()
+function getY()
     return yOffset
 end
 
-function getOffsetZ()
+function getZ()
     return zOffset
 end
 
