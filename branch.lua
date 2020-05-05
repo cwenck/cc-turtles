@@ -28,7 +28,7 @@ end
 
 local function tunnel()
     local requiredMovement = distance * 2
-    position.refuel(requiredMovement)
+    testudo.refuel(requiredMovement)
 
     while testudo.getX() < distance do
         turtle.select(1)
