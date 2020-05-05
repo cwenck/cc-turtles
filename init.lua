@@ -32,7 +32,7 @@ function downloadProgram(name)
     end
 
     -- Download the program
-    web.download(url, fullName)
+    web.download(shell, url, fullName)
 
     print("Finished downloading " .. name)
 end

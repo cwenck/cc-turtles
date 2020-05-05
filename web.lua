@@ -27,7 +27,7 @@ local function get(url)
     return responseBody
 end
  
-function download(url, name)
+function download(shell, url, name)
     local path = shell.resolve(name)
     local response = get(url)
     if response then
