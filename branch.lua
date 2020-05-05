@@ -12,7 +12,7 @@ local distance = 100
 local torchFrequency = 9
 
 local function loadApis()
-    os.loadAPI("utils.lua")
+    os.loadAPI("util.lua")
     os.loadAPI("testudo.lua")
 end
 
