@@ -135,7 +135,9 @@ end
 
 -- Move forward.
 function forward(force)
-        while not hasAnyFuel() do
+    force = getOrDefault(force, true)
+
+    while not hasAnyFuel() do
         refuelMinimum()
     end
 
@@ -160,9 +162,7 @@ end
 
 -- Move up.
 function up(force)
-    if force == nil then
-        force = true
-    end
+    force = getOrDefault(force, true)
 
     while not hasAnyFuel() do
         refuelMinimum()
@@ -179,6 +179,8 @@ end
 
 -- Move down.
 function down(force)
+    force = getOrDefault(force, true)
+
     while not hasAnyFuel() do
         refuelMinimum()
     end
