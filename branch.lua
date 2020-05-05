@@ -16,23 +16,6 @@ local function loadApis()
     os.loadAPI("testudo.lua")
 end
 
-local function main()
-    loadApis()
-
-    if args[1] ~= nil then
-        length = tonumber(args[1])
-    end
-
-    if args[2] ~= nil then
-        torchFrequency = tonumber(args[2])
-    end
-
-    tunnel()
-    testudo.right()
-    testudo.right()
-    returnTunnel()
-end
-
 local function shouldTorch()
     return testudo.getX() % torchFrequency == 0
 end
@@ -62,6 +45,23 @@ local function returnTunnel()
     while testudo.getX() < distance do
         testudo.forward()
     end
+end
+
+local function main()
+    loadApis()
+
+    if args[1] ~= nil then
+        length = tonumber(args[1])
+    end
+
+    if args[2] ~= nil then
+        torchFrequency = tonumber(args[2])
+    end
+
+    tunnel()
+    testudo.right()
+    testudo.right()
+    returnTunnel()
 end
 
 main()
