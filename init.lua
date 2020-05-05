@@ -4,10 +4,12 @@ local programs = {
     "digger",
     "testudo",
     "util",
-    "branch"
+    "branch",
+    "web"
 }
 
 function main()
+    os.loadAPI("web.lua")
     for _, name in ipairs(programs) do
         downloadProgram(name)
     end
@@ -30,8 +32,7 @@ function downloadProgram(name)
     end
 
     -- Download the program
-
-    shell.run("wget", url, fullName)
+    web.download(url, fullName)
 
     print("Finished downloading " .. name)
 end
