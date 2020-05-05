@@ -67,7 +67,7 @@ local function tryRefuelFromSlot(slot, threshold)
     turtle.select(slot)
 
     while not hasFuel(threshold) do
-        if not turtle.refuel() then
+        if not turtle.refuel(1) then
             turtle.select(originalSlot)
             return false
         end
