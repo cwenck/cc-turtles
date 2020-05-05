@@ -21,6 +21,7 @@ local function shouldTorch()
 end
 
 local function placeTorch()
+    -- TODO : verify that slot 16 has torches
     turtle.select(16)
     turtle.placeUp()
     turtle.select(1)
@@ -51,12 +52,14 @@ local function main()
     loadApis()
 
     if args[1] ~= nil then
-        length = tonumber(args[1])
+        distance = tonumber(args[1])
     end
 
     if args[2] ~= nil then
         torchFrequency = tonumber(args[2])
     end
+
+    print("Starting branch of length " .. distance)
 
     tunnel()
     testudo.right()
