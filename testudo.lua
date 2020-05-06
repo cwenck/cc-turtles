@@ -299,7 +299,7 @@ function findSlotWithMinItem(item)
 
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, {item}) then
-            if minCount == nil or slotDetails.count < minCount then
+            if minCount == nil or slotInfo.details.count < minCount then
                 bestSlot = slotInfo.slot
             end
         end
@@ -316,7 +316,7 @@ function findSlotWithMinItems(itemList)
 
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, itemList) then
-            if minCount == nil or slotDetails.count < minCount then
+            if minCount == nil or slotInfo.details.count < minCount then
                 bestSlot = slotInfo.slot
             end
         end
@@ -333,7 +333,7 @@ function findSlotWithMaxItem(item)
 
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, {item}) then
-            if maxCount == nil or slotDetails.count > maxCount then
+            if maxCount == nil or slotInfo.details.count > maxCount then
                 bestSlot = slotInfo.slot
             end
         end
@@ -350,7 +350,7 @@ function findSlotWithMaxItems(itemList)
 
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, itemList) then
-            if maxCount == nil or slotDetails.count > maxCount then
+            if maxCount == nil or slotInfo.details.count > maxCount then
                 bestSlot = slotInfo.slot
             end
         end
