@@ -300,7 +300,7 @@ function findSlotWithMinItem(item)
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, {item}) then
             if minCount == nil or slotDetails.count < minCount then
-                bestSlot = i
+                bestSlot = slotInfo.slot
             end
         end
     end
@@ -317,7 +317,7 @@ function findSlotWithMinItems(itemList)
     for _, slotInfo in ipairs(inventory) do
         if isItemMatch(slotInfo.details, itemList) then
             if minCount == nil or slotDetails.count < minCount then
-                bestSlot = i
+                bestSlot = slotInfo.slot
             end
         end
     end
