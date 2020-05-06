@@ -262,7 +262,10 @@ function inspectInventoryContents()
     local inventory = {}
 
     for i = 1,16 do
-        inventory[i] = turtle.getItemDetail(i)
+        inventory[i] = {
+            slot = i,
+            details = turtle.getItemDetail(i)
+        }
     end
 
     return inventory
@@ -271,9 +274,9 @@ end
 function findAnySlotWithItem(item)
     local inventory = inspectInventoryContents()
 
-    for i, slotDetails in ipairs(inventory) do
-        if isItemMatch({item}) then
-            return i
+    for _, slotInfo in ipairs(inventory) do
+        if isItemMatch(slotInfo.details, {item}) then
+            return slotInfo.slot
         end
     end
 end
@@ -281,9 +284,9 @@ end
 function findAnySlotWithItems(itemList)
     local inventory = inspectInventoryContents()
 
-    for i, slotDetails in ipairs(inventory) do
-        if isItemMatch({item}) then
-            return i
+    for _, slotInfo in ipairs(inventory) do
+        if isItemMatch(slotInfo.details, itemList) then
+            return slotInfo.slot
         end
     end
 end
@@ -294,8 +297,8 @@ function findSlotWithMinItem(item)
     local minCount = nil
     local bestSlot = nil
 
-    for i, slotDetails in ipairs(inventory) do
-        if isItemMatch({item}) then
+    for _, slotInfo in ipairs(inventory) do
+        if isItemMatch(slotInfo.details, {item}) then
             if minCount == nil or slotDetails.count < minCount then
                 bestSlot = i
             end
@@ -311,8 +314,8 @@ function findSlotWithMinItems(itemList)
     local minCount = nil
     local bestSlot = nil
 
-    for i, slotDetails in ipairs(inventory) do
-        if isItemMatch(slotDetails, itemList) then
+    for _, slotInfo in ipairs(inventory) do
+        if isItemMatch(slotInfo.details, itemList) then
             if minCount == nil or slotDetails.count < minCount then
                 bestSlot = i
             end
