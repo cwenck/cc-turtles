@@ -255,17 +255,37 @@ local function isItemMatch(slotDetails, itemList)
         end
     end
 
-    return
+    return false
 end
 
 function inspectInventoryContents()
     local inventory = {}
 
     for i = 1,16 do
-        inventory[i] = turtle.getItemDetail()
+        inventory[i] = turtle.getItemDetail(i)
     end
 
     return inventory
+end
+
+function findAnySlotWithItem(item)
+    local inventory = inspectInventoryContents()
+
+    for i, slotDetails in ipairs(inventory) do
+        if isItemMatch({item}) then
+            return i
+        end
+    end
+end
+
+function findAnySlotWithItems(itemList)
+    local inventory = inspectInventoryContents()
+
+    for i, slotDetails in ipairs(inventory) do
+        if isItemMatch({item}) then
+            return i
+        end
+    end
 end
 
 function findSlotWithMinItem(item)
