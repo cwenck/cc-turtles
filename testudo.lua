@@ -1,6 +1,10 @@
 os.loadAPI("util.lua")
 -----------------------------------------
 
+----------------------------
+-- MOVEMENT & POSITIONING --
+----------------------------
+
 RelativeDirection = {
     FORWARD = 0,
     RIGHT = 1,
@@ -234,4 +238,82 @@ end
 
 function getFacing()
     return facing
+end
+
+--------------------------
+-- INVENTORY MANAGEMENT --
+--------------------------
+
+local function isItemMatch(slotDetails, itemList)
+    if slotDetails == nil then
+        return false
+    end
+
+    for _, item in ipairs(itemList) do
+        if slotDetails.name == item then
+            return true
+        end
+    end
+
+    return
+end
+
+function inspectInventoryContents()
+    local inventory = {}
+
+    for i = 1,16 do
+        inventory[i] = turtle.getItemDetail()
+    end
+
+    return inventory
+end
+
+function findSlotWithMinItem(item)
+    local inventory = inspectInventoryContents()
+
+    local minCount = nil
+    local bestSlot = nil
+
+    for i, slotDetails in ipairs(inventory) do
+        if isItemMatch({item}) then
+            if minCount == nil or slotDetails.count < minCount then
+                bestSlot = i
+            end
+        end
+    end
+
+    return bestSlot
+end
+
+function findSlotWithMinItems(itemList)
+    local inventory = inspectInventoryContents()
+
+    local minCount = nil
+    local bestSlot = nil
+
+    for i, slotDetails in ipairs(inventory) do
+        if isItemMatch(slotDetails, itemList) then
+            if minCount == nil or slotDetails.count < minCount then
+                bestSlot = i
+            end
+        end
+    end
+
+    return bestSlot
+end
+
+function selectSlotWithMinItem(item)
+    local slot = findSlotWithMinItem(item)
+
+    if slot ~= nil then
+        turtle.select(slot)
+    end
+end
+
+function selectSlotWithMinItems(itemList)
+    local slot = findSlotWithMinItems(itemList)
+
+    if slot ~= nil then
+        turtle.select(slot)
+    end
 end
