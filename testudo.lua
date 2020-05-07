@@ -271,26 +271,6 @@ function inspectInventoryContents()
     return inventory
 end
 
--- function findAnySlotWithItem(item)
---     local inventory = inspectInventoryContents()
-
---     for _, slotInfo in ipairs(inventory) do
---         if isItemMatch(slotInfo.details, {item}) then
---             return slotInfo.slot
---         end
---     end
--- end
-
--- function findAnySlotWithItems(itemList)
---     local inventory = inspectInventoryContents()
-
---     for _, slotInfo in ipairs(inventory) do
---         if isItemMatch(slotInfo.details, itemList) then
---             return slotInfo.slot
---         end
---     end
--- end
-
 function findSlotWithMinItem(item)
     local inventory = inspectInventoryContents()
 
@@ -309,32 +289,16 @@ function findSlotWithMinItem(item)
     return bestSlot
 end
 
--- function findSlotWithMinItems(itemList)
---     local inventory = inspectInventoryContents()
-
---     local minCount = nil
---     local bestSlot = nil
-
---     for _, slotInfo in ipairs(inventory) do
---         if isItemMatch(slotInfo.details, itemList) then
---             if minCount == nil or slotInfo.details.count < minCount then
---                 bestSlot = slotInfo.slot
---             end
---         end
---     end
-
---     return bestSlot
--- end
-
 function findSlotWithMaxItem(item)
     local inventory = inspectInventoryContents()
 
     local maxCount = nil
     local bestSlot = nil
 
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, {item}) then
+    for _, slotInfo in pairs(inventory) do
+        if isItemMatch(slotInfo.details, util.toTable(item)) then
             if maxCount == nil or slotInfo.details.count > maxCount then
+                maxCount = slotInfo.details.count
                 bestSlot = slotInfo.slot
             end
         end
@@ -343,49 +307,16 @@ function findSlotWithMaxItem(item)
     return bestSlot
 end
 
-function findSlotWithMaxItems(itemList)
-    local inventory = inspectInventoryContents()
-
-    local maxCount = nil
-    local bestSlot = nil
-
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, itemList) then
-            if maxCount == nil or slotInfo.details.count > maxCount then
-                bestSlot = slotInfo.slot
-            end
-        end
-    end
-
-    return bestSlot
-end
-
-function selectSlotWithMinItem(items)
-    local slot = findSlotWithMinItem(items)
+function selectSlotWithMinItem(item)
+    local slot = findSlotWithMinItem(item)
 
     if slot ~= nil then
         turtle.select(slot)
     end
 end
-
--- function selectSlotWithMinItems(itemList)
---     local slot = findSlotWithMinItems(itemList)
-
---     if slot ~= nil then
---         turtle.select(slot)
---     end
--- end
 
 function selectSlotWithMaxItem(item)
     local slot = findSlotWithMaxItem(item)
-
-    if slot ~= nil then
-        turtle.select(slot)
-    end
-end
-
-function selectSlotWithMaxItems(itemList)
-    local slot = findSlotWithMaxItems(itemList)
 
     if slot ~= nil then
         turtle.select(slot)
