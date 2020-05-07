@@ -12,6 +12,15 @@ RelativeDirection = {
     LEFT = 3,
 }
 
+Side = {
+    FRONT = 0,
+    LEFT = 1,
+    BACK = 2,
+    RIGHT = 3,
+    UP = 4,
+    DOWN = 5
+}
+
 -----------------------------------------
 
 local debugEnabled = false
@@ -138,80 +147,97 @@ function digDown()
 end
 
 -- Move forward.
-function forward(force)
+function forward(count, force)
+    count = util.getOrDefault(count, 1)
     force = util.getOrDefault(force, true)
 
-    while not hasAnyFuel() do
-        refuelMinimum()
-    end
-
-    repeat
-        if force then
-            dig()
+    for _ = 1, count do
+        while not hasAnyFuel() do
+            refuelMinimum()
         end
-    until (turtle.forward())
 
-    if facing == RelativeDirection.FORWARD then
-        xOffset = xOffset + 1
-    elseif facing == RelativeDirection.BACKWARD then
-        xOffset = xOffset - 1
-    elseif facing == RelativeDirection.RIGHT then
-        zOffset = zOffset + 1
-    elseif facing == RelativeDirection.LEFT then
-        zOffset = zOffset - 1
-    else
-        error("Unknown facing " .. facing)
+        repeat
+            if force then
+                dig()
+            end
+        until (turtle.forward())
+
+        if facing == RelativeDirection.FORWARD then
+            xOffset = xOffset + 1
+        elseif facing == RelativeDirection.BACKWARD then
+            xOffset = xOffset - 1
+        elseif facing == RelativeDirection.RIGHT then
+            zOffset = zOffset + 1
+        elseif facing == RelativeDirection.LEFT then
+            zOffset = zOffset - 1
+        else
+            error("Unknown facing " .. facing)
+        end
     end
 end
 
 -- Move up.
-function up(force)
+function up(count, force)
+    count = util.getOrDefault(count, 1)
     force = util.getOrDefault(force, true)
 
-    while not hasAnyFuel() do
-        refuelMinimum()
-    end
-
-    repeat
-        if force then
-            digUp()
+    for _ = 1, count do
+        while not hasAnyFuel() do
+            refuelMinimum()
         end
-    until (turtle.up())
 
-    yOffset = yOffset + 1
+        repeat
+            if force then
+                digUp()
+            end
+        until (turtle.up())
+
+        yOffset = yOffset + 1
+    end
 end
 
 -- Move down.
-function down(force)
+function down(count, force)
+    count = util.getOrDefault(count, 1)
     force = util.getOrDefault(force, true)
 
-    while not hasAnyFuel() do
-        refuelMinimum()
-    end
-
-    repeat
-        if force then
-            digDown()
+    for _ = 1, count do
+        while not hasAnyFuel() do
+            refuelMinimum()
         end
-    until (turtle.down())
 
-    yOffset = yOffset - 1
+        repeat
+            if force then
+                digDown()
+            end
+        until (turtle.down())
+
+        yOffset = yOffset - 1
+    end
 end
 
 -- Turn left.
-function left()
-    turtle.turnLeft()
+function left(count)
+    count = util.getOrDefault(count, 1)
 
-    -- Update the facing
-    facing = (facing - 1) % 4
+    for _ = 1, count do
+        turtle.turnLeft()
+
+        -- Update the facing
+        facing = (facing - 1) % 4
+    end
 end
 
 -- Turn right.
-function right()
-    turtle.turnRight()
+function right(count)
+    count = util.getOrDefault(count, 1)
 
-    -- Update the facing
-    facing = (facing + 1) % 4
+    for _ = 1, count do
+        turtle.turnRight()
+
+        -- Update the facing
+        facing = (facing + 1) % 4
+    end
 end
 
 function resetPosition()
