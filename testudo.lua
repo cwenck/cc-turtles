@@ -244,12 +244,12 @@ end
 -- INVENTORY MANAGEMENT --
 --------------------------
 
-local function isItemMatch(slotDetails, itemList)
+local function isItemMatch(slotDetails, items)
     if slotDetails == nil then
         return false
     end
 
-    for _, item in ipairs(itemList) do
+    for _, item in pairs(items) do
         if slotDetails.name == item then
             return true
         end
@@ -271,25 +271,25 @@ function inspectInventoryContents()
     return inventory
 end
 
-function findAnySlotWithItem(item)
-    local inventory = inspectInventoryContents()
+-- function findAnySlotWithItem(item)
+--     local inventory = inspectInventoryContents()
 
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, {item}) then
-            return slotInfo.slot
-        end
-    end
-end
+--     for _, slotInfo in ipairs(inventory) do
+--         if isItemMatch(slotInfo.details, {item}) then
+--             return slotInfo.slot
+--         end
+--     end
+-- end
 
-function findAnySlotWithItems(itemList)
-    local inventory = inspectInventoryContents()
+-- function findAnySlotWithItems(itemList)
+--     local inventory = inspectInventoryContents()
 
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, itemList) then
-            return slotInfo.slot
-        end
-    end
-end
+--     for _, slotInfo in ipairs(inventory) do
+--         if isItemMatch(slotInfo.details, itemList) then
+--             return slotInfo.slot
+--         end
+--     end
+-- end
 
 function findSlotWithMinItem(item)
     local inventory = inspectInventoryContents()
@@ -297,8 +297,8 @@ function findSlotWithMinItem(item)
     local minCount = nil
     local bestSlot = nil
 
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, {item}) then
+    for _, slotInfo in pairs(inventory) do
+        if isItemMatch(slotInfo.details, util.toTable(item)) then
             if minCount == nil or slotInfo.details.count < minCount then
                 bestSlot = slotInfo.slot
             end
@@ -359,21 +359,21 @@ function findSlotWithMaxItems(itemList)
     return bestSlot
 end
 
-function selectSlotWithMinItem(item)
-    local slot = findSlotWithMinItem(item)
+function selectSlotWithMinItem(items)
+    local slot = findSlotWithMinItem(items)
 
     if slot ~= nil then
         turtle.select(slot)
     end
 end
 
-function selectSlotWithMinItems(itemList)
-    local slot = findSlotWithMinItems(itemList)
+-- function selectSlotWithMinItems(itemList)
+--     local slot = findSlotWithMinItems(itemList)
 
-    if slot ~= nil then
-        turtle.select(slot)
-    end
-end
+--     if slot ~= nil then
+--         turtle.select(slot)
+--     end
+-- end
 
 function selectSlotWithMaxItem(item)
     local slot = findSlotWithMaxItem(item)

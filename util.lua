@@ -1,16 +1,22 @@
-function findSlotWithItem(item)
-
-end
-
-function selectSlotWithItem(item)
-    local slot = findSlotWithItem(item)
-    turtle.select(slot)
-end
-
-function getOrDefault(var, defaultIfNil)
-    if var == nil then
+-- Get the value if it is not nil, otherwise return the default value.
+function getOrDefault(value, defaultIfNil)
+    if value == nil then
         return defaultIfNil
     else
-        return var
+        return value
+    end
+end
+
+-- Check if a value is a table.
+function isTable(value)
+    return type(value) == "table"
+end
+
+-- If the value is a table return it, otherwise create a single element table with the value.
+function toTable(value)
+    if isTable(value) then
+        return value
+    else
+        return {value}
     end
 end
