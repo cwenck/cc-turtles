@@ -300,6 +300,7 @@ function findSlotWithMinItem(item)
     for _, slotInfo in pairs(inventory) do
         if isItemMatch(slotInfo.details, util.toTable(item)) then
             if minCount == nil or slotInfo.details.count < minCount then
+                minCount = slotInfo.details.count
                 bestSlot = slotInfo.slot
             end
         end
@@ -308,22 +309,22 @@ function findSlotWithMinItem(item)
     return bestSlot
 end
 
-function findSlotWithMinItems(itemList)
-    local inventory = inspectInventoryContents()
+-- function findSlotWithMinItems(itemList)
+--     local inventory = inspectInventoryContents()
 
-    local minCount = nil
-    local bestSlot = nil
+--     local minCount = nil
+--     local bestSlot = nil
 
-    for _, slotInfo in ipairs(inventory) do
-        if isItemMatch(slotInfo.details, itemList) then
-            if minCount == nil or slotInfo.details.count < minCount then
-                bestSlot = slotInfo.slot
-            end
-        end
-    end
+--     for _, slotInfo in ipairs(inventory) do
+--         if isItemMatch(slotInfo.details, itemList) then
+--             if minCount == nil or slotInfo.details.count < minCount then
+--                 bestSlot = slotInfo.slot
+--             end
+--         end
+--     end
 
-    return bestSlot
-end
+--     return bestSlot
+-- end
 
 function findSlotWithMaxItem(item)
     local inventory = inspectInventoryContents()
