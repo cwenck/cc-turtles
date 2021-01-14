@@ -14,7 +14,7 @@ local function get(url)
     end
 
     local headers = {
-        ["Cache-Control"] = "no-store"
+        ["cache-control"] = "no-cache, must-revalidate"
     }
 
     local response = http.get(url, headers)
