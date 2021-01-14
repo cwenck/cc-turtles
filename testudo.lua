@@ -177,7 +177,7 @@ function forward(count, force)
 end
 
 -- Move backward.
-function backward(count)
+function back(count)
     count = util.getOrDefault(count, 1)
 
     for _ = 1, count do
@@ -185,7 +185,7 @@ function backward(count)
             refuelMinimum()
         end
 
-        repeat until (turtle.backward())
+        repeat until (turtle.back())
 
         if facing == RelativeDirection.FORWARD then
             xOffset = xOffset - 1
