@@ -176,6 +176,29 @@ function forward(count, force)
     end
 end
 
+-- Move backward.
+function backward(count)
+    count = util.getOrDefault(count, 1)
+
+    for _ = 1, count do
+        while not hasAnyFuel() do
+            refuelMinimum()
+        end
+
+        if facing == RelativeDirection.FORWARD then
+            xOffset = xOffset - 1
+        elseif facing == RelativeDirection.BACKWARD then
+            xOffset = xOffset + 1
+        elseif facing == RelativeDirection.RIGHT then
+            zOffset = zOffset - 1
+        elseif facing == RelativeDirection.LEFT then
+            zOffset = zOffset + 1
+        else
+            error("Unknown facing " .. facing)
+        end
+    end
+end
+
 -- Move up.
 function up(count, force)
     count = util.getOrDefault(count, 1)
