@@ -185,6 +185,8 @@ function backward(count)
             refuelMinimum()
         end
 
+        repeat until (turtle.backward())
+
         if facing == RelativeDirection.FORWARD then
             xOffset = xOffset - 1
         elseif facing == RelativeDirection.BACKWARD then
