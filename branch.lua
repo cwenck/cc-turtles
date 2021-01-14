@@ -37,7 +37,9 @@ local function tunnel()
         testudo.digUp()
 
         if shouldTorch() then
+            testudo.backward()
             placeTorch()
+            testudo.forward()
         end
     end
 end
