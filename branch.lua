@@ -9,7 +9,7 @@
 local args = {...}
 
 local distance = 100
-local torchFrequency = 9
+local torchFrequency = 7
 
 local function loadApis()
     os.loadAPI("util.lua")
@@ -17,7 +17,7 @@ local function loadApis()
 end
 
 local function shouldTorch()
-    return testudo.getX() % torchFrequency == 1
+    return testudo.getX() % torchFrequency == 2
 end
 
 local function placeTorch()
