@@ -4,7 +4,7 @@ if not http then
     return
 end
  
-local function get(url)
+function get(url)
     local ok, err = http.checkURL(url)
     if not ok then
         if err then
@@ -13,11 +13,7 @@ local function get(url)
         return nil
     end
 
-    local headers = {
-        ["cache-control"] = "no-cache, must-revalidate"
-    }
-
-    local response = http.get(url, headers)
+    local response = http.get(url)
     if not response then
         return nil
     end
@@ -26,7 +22,7 @@ local function get(url)
     response.close()
     return responseBody
 end
- 
+
 function download(shell, url, name)
     local path = shell.resolve(name)
     local response = get(url)
