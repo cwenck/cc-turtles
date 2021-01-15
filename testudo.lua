@@ -315,8 +315,12 @@ function inspectInventoryContents()
     for i = 1,16 do
         inventory[i] = {
             slot = i,
-            details = turtle.getItemDetail(i)
+            details = turtle.getItemDetail(i),
         }
+
+        if inventory[i].details ~= nil then
+            inventory.details.space = turtle.getItemSpace(i)
+        end
     end
 
     return inventory
