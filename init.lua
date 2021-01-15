@@ -1,11 +1,11 @@
 local programs = {
-    "init",
     "branch-miner",
     "digger",
     "testudo",
     "util",
     "branch",
-    "web"
+    "web",
+    "init"
 }
 
 local function generateUrlForProgram(name, commit_hash)
@@ -28,7 +28,7 @@ local function downloadProgram(name, commit_hash)
     local url = generateUrlForProgram(name, commit_hash)
     
     -- Delete tmp file if it exists
-    local tmpFileName = ".tmp-download"
+    local tmpFileName = "tmp-download"
     if fs.exists(tmpFileName) then
         fs.delete(tmpFileName)
     end
