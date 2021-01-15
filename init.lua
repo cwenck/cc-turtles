@@ -8,8 +8,11 @@ local programs = {
     "init"
 }
 
+-- Load APIs
+os.loadAPI("web.lua")
+
 local function generateUrlForProgram(name, commit_hash)
-    local baseUrl = "https://raw.githubusercontent.com/cwenck/cc-turtles/master"
+    local baseUrl = "https://raw.githubusercontent.com/cwenck/cc-turtles"
     return baseUrl .. "/" .. commit_hash .. "/" .. name .. ".lua"
 end
 
@@ -17,7 +20,6 @@ end
 local function getLatestCommitHash(branch)
     local body = web.get("https://github.com/cwenck/cc-turtles.git/info/refs?service=git-upload-pack")
     local _, _, hash = string.find(body, "003f(%x+) refs/heads/" .. branch)
-    print("Hash: '" .. hash .. "'")
     return hash
 end
 
@@ -34,8 +36,7 @@ local function downloadProgram(name, commit_hash)
     end
     
     -- Download the program
-    local success = web.download(url, tmpFileName)
-    print("Success: " .. tostring(success))
+    web.download(url, tmpFileName)
 
     -- Delete the program if it already exists
     if fs.exists(fullName) then
@@ -49,8 +50,6 @@ local function downloadProgram(name, commit_hash)
 end
 
 function main()
-    os.loadAPI("web.lua")
-
     commit_hash = getLatestCommitHash("master")
     for _, name in ipairs(programs) do
         downloadProgram(name, commit_hash)
