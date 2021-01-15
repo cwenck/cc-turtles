@@ -335,6 +335,7 @@ function countItems()
         end
     end
 
+    return itemCounts
 end
 
 function findSlotWithMinItem(item)
