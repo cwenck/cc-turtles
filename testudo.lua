@@ -338,6 +338,11 @@ function countItems()
     return itemCounts
 end
 
+-- Counts the number of a specific item in the turtle's inventory
+function itemCount(item)
+    return util.getOrDefault(countItems()[item], 0)
+end
+
 function findSlotWithMinItem(item)
     local inventory = inspectInventoryContents()
 
