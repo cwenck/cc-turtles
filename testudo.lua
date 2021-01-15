@@ -328,7 +328,7 @@ function countItems()
     local itemCounts = {}
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo is not nil then
+        if slotInfo not nil then
             local name = slotInfo.details.name
             local count = slotInfo.details.count
             itemCounts[name] = count + util.getOrDefault(itemCounts[name], 0)
