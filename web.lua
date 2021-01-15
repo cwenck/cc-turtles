@@ -30,5 +30,7 @@ function download(shell, url, name)
         local file = fs.open(path, "wb")
         file.write(response)
         file.close()
+        return true
     end
+    return false
 end
