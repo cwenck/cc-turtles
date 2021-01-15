@@ -18,6 +18,9 @@ function get(url)
         return nil
     end
 
+    local statusCode = response.getResponseCode()
+    print("Status: " .. tostring(statusCode))
+
     local responseBody = response.readAll()
     response.close()
     return responseBody
