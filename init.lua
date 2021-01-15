@@ -26,12 +26,13 @@ local function downloadProgram(name, commit_hash)
     
     local fullName = name .. ".lua"
     local url = generateUrlForProgram(name, commit_hash)
-    print("URL: " .. url)
-
+    
     -- Delete tmp file if it exists
     local tmpFileName = ".tmp-download"
-    fs.delete(tmpFileName)
-
+    if fs.exists(tmpFileName) then
+        fs.delete(tmpFileName)
+    end
+    
     -- Download the program
     web.download(shell, url, tmpFileName)
 
@@ -41,7 +42,7 @@ local function downloadProgram(name, commit_hash)
     end
 
     -- Move the downloaded file to the actual file name
-    fs.move("tmpFileName", fullName)
+    fs.move(tmpFileName, fullName)
 
     print("Finished downloading " .. name)
 end
