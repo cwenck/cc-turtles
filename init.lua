@@ -34,7 +34,7 @@ local function downloadProgram(name, commit_hash)
     end
     
     -- Download the program
-    local success = web.download(shell, url, tmpFileName)
+    local success = web.download(url, tmpFileName)
     print("Success: " .. tostring(success))
 
     -- Delete the program if it already exists

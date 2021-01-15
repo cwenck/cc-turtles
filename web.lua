@@ -26,8 +26,7 @@ function get(url)
     return responseBody
 end
 
-function download(shell, url, name)
-    local path = shell.resolve(name)
+function download(url, path)
     local response = get(url)
     if response then
         local file = fs.open(path, "wb")
