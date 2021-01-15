@@ -41,7 +41,7 @@ local function downloadProgram(name, commit_hash)
     end
 
     -- Move the downloaded file to the actual file name
-    fs.move("tmpFileName")
+    fs.move("tmpFileName", fullName)
 
     print("Finished downloading " .. name)
 end
