@@ -19,20 +19,19 @@ function get(url)
     end
 
     local statusCode = response.getResponseCode()
-    print("Status: " .. tostring(statusCode))
-
     local responseBody = response.readAll()
     response.close()
-    return responseBody
+
+    return responseBody, statusCode
 end
 
 function download(url, path)
-    local response = get(url)
+    local response, statusCode = get(url)
     if response then
         local file = fs.open(path, "wb")
         file.write(response)
         file.close()
-        return true
+        return true, statusCode
     end
-    return false
+    return false, statusCode
 end
