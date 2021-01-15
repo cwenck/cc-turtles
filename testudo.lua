@@ -319,7 +319,7 @@ function inspectInventoryContents()
         }
 
         if inventory[i].details ~= nil then
-            inventory.details.space = turtle.getItemSpace(i)
+            inventory[i].details.space = turtle.getItemSpace(i)
         end
     end
 
