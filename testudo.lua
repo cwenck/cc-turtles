@@ -322,6 +322,21 @@ function inspectInventoryContents()
     return inventory
 end
 
+-- Counts the sum of each type of item in the turtle's inventory
+function countItems()
+    local inventory = inspectInventoryContents()
+    local itemCounts = {}
+
+    for _, slotInfo in pairs(inventory) do
+        if isItemMatch(slotInfo.details, util.toTable(item)) then
+            local name = slotInfo.details.name
+            local count = slotInfo.details.count
+            itemCounts[name] = count + util.getOrDefault(itemCounts[name], 0)
+        end
+    end
+
+end
+
 function findSlotWithMinItem(item)
     local inventory = inspectInventoryContents()
 
