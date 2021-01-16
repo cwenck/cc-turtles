@@ -535,9 +535,11 @@ local function selectBestSlot(bestSlotInfo, currentSlotInfo, stackPriority)
     elseif stackPriority == StackPriority.MAX and currentSlotInfo.count > bestSlotInfo.count then
         return currentSlotInfo
     end
+
+    return bestSlotInfo
 end
 
-function findSlotWithItem(items, stackPriority, stackType)    
+function findSlotWithItem(items, stackPriority, stackType, excludeSlots)    
     local inventory = inspectSlots()
     local bestSlotInfo = nil
 
@@ -550,8 +552,8 @@ function findSlotWithItem(items, stackPriority, stackType)
     return bestSlotInfo
 end
 
-function selectSlotWithItem(items, stackPriority, stackType)
-    local slot = findSlotWithItem(items, stackPriority, stackType)
+function selectSlotWithItem(items, stackPriority, stackType, excludeSlots)
+    local slot = findSlotWithItem(items, stackPriority, stackType, excludeSlots)
     if slot then
         turtle.select(slot)
         return true
