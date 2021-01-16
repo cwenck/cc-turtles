@@ -478,8 +478,8 @@ function stackItems(items)
     items = util.toTable(items)
 
     for _, item in pairs(items) do        
-        local moveToSlot = findSlotWithMaxItem(item, SlotType.PARTIAL)
-        local moveFromSlot = findSlotWithMinItem(item, SlotType.PARTIAL)
+        local moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
+        local moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
 
         while moveToSlot == nil or moveFromSlot == nil or moveToSlot == moveFromSlot do
             local originalSlot = turtle.getSelectedSlot()
@@ -487,8 +487,8 @@ function stackItems(items)
             turtle.transferTo(moveToSlot)
             turtle.selectSlot(originalSlot)
 
-            moveToSlot = findSlotWithMaxItem(item, SlotType.PARTIAL)
-            moveFromSlot = findSlotWithMinItem(item, SlotType.PARTIAL)
+            moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
+            moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
         end
     end
 end
