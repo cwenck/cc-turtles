@@ -529,13 +529,15 @@ end
 local function selectBestSlot(bestSlotInfo, currentSlotInfo, stackPriority)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
-    if bestSlotInfo == nil then return currentSlotInfo end
-    if stackPriority == StackPriority.MIN and currentSlotInfo.count < bestSlotInfo.count then
+    if bestSlotInfo == nil then
+        return currentSlotInfo
+    elseif stackPriority == StackPriority.MIN and currentSlotInfo.count < bestSlotInfo.count then
         return currentSlotInfo
     elseif stackPriority == StackPriority.MAX and currentSlotInfo.count > bestSlotInfo.count then
         return currentSlotInfo
     end
 
+    -- Return the current best slot information
     return bestSlotInfo
 end
 
