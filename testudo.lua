@@ -352,7 +352,7 @@ function inspectSlot(slot)
         result.space = turtle.getItemSpace(slot)
         result.maxCount = result.space + result.count
         result.name = details.name
-        result.stackType = result.space == 0 and StackType.FULL or StackType.PARTIAL 
+        result.stackType = util.ternary(result.space == 0, StackType.FULL, StackType.PARTIAL)
     end
 
     return result

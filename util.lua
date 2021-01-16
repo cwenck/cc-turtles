@@ -16,7 +16,16 @@ end
 function toTable(value)
     if isTable(value) then
         return value
-    else
-        return {value}
     end
+
+    return {value}
+end
+
+-- Ternary operator shorthand
+function ternary(condition, valueIfTrue, valueIfFalse)
+    if condition then
+        return valueIfTrue
+    end
+
+    return valueIfFalse
 end
