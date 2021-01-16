@@ -9,7 +9,7 @@ local args = {...}
 local distance = 100
 local torchFrequency = 7
 local buildBridge = true
-local bridgeBlocks = {"minecraft:cobblestone"}
+local bridgeBlocks = {"minecraft:cobblestone", "minecraft:dirt", "minecraft:diorite", "minecraft:granite"}
 
 -- Load APIs
 os.loadAPI("util.lua")
@@ -63,6 +63,10 @@ local function tunnel()
         turtle.select(1)
         testudo.forward()
         testudo.digDown()
+
+        if shouldBridgeUp() then
+            testudo.placeUp(bridgeBlocks, testudo.StackPriority.MIN)
+        end
 
         if shouldTorch() then
             testudo.right(2)
