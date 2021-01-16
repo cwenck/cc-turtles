@@ -397,7 +397,8 @@ function inspectSlot(slot)
     end
 
     function result:isStackOfType(stackType)
-        if stackType == nil then return false end
+        -- Treat nil as any stack type
+        if stackType == nil then return true end
         return self.stackType == stackType
     end
 
@@ -550,7 +551,7 @@ function findSlotWithItem(items, stackPriority, stackType, excludeSlots)
     print("Find slot")
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) --[[ and not slotInfo:isOneOf(excludeSlots) --]] then
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
             print("Within if")
             bestSlotInfo = selectBestSlot(bestSlotInfo, slotInfo, stackPriority)
         end
