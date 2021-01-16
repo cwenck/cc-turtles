@@ -384,7 +384,7 @@ function inspectSlot(slot)
         return false
     end
 
-    function result::isOneOf(slots)
+    function result:isOneOf(slots)
         slots = util.toTable(slots)
         return util.containsValue(slots, self.slot)
     end 
