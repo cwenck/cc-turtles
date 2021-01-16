@@ -435,7 +435,7 @@ function inventoryItems()
     
     for _, slotInfo in pairs(inventory) do
         if not slotInfo:isEmpty() then
-            itemNames:insert(slotInfo.name)
+            table.insert(itemNames, slotInfo.name)
         end
     end
 
