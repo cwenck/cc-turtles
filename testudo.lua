@@ -429,6 +429,19 @@ function countItem(item)
     return util.getOrDefault(countItems()[item], 0)
 end
 
+function inventoryItems()
+    local inventory = inspectSlots()
+    local itemNames = {}
+    
+    for _, slotInfo in pairs(inventory) do
+        if not slotInfo:isEmpty() then
+            itemNames:insert(slotInfo.name)
+        end
+    end
+
+    return itemNames
+end
+
 function findSlotWithMinItem(items, stackType, excludeSlots)
     local inventory = inspectSlots()
 
@@ -482,8 +495,10 @@ function selectSlotWithMaxItem(items, stackType)
 end
 
 function stackItems(items)
-    local originalSlot = turtle.getSelectedSlot()
+    items = util.getOrDefault(items, inventoryItems())
     items = util.toTable(items)
+
+    local originalSlot = turtle.getSelectedSlot()
 
     for _, item in pairs(items) do        
         local moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
