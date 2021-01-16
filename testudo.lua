@@ -475,6 +475,7 @@ function selectSlotWithMaxItem(items, stackType)
 end
 
 function stackItems(items)
+    local originalSlot = turtle.getSelectedSlot()
     items = util.toTable(items)
 
     for _, item in pairs(items) do        
@@ -482,13 +483,13 @@ function stackItems(items)
         local moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
 
         while moveToSlot and moveFromSlot and moveToSlot ~= moveFromSlot do
-            local originalSlot = turtle.getSelectedSlot()
-            turtle.selectSlot(moveFromSlot)
+            turtle.select(moveFromSlot)
             turtle.transferTo(moveToSlot)
-            turtle.selectSlot(originalSlot)
 
             moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
             moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
         end
     end
+
+    turtle.select(originalSlot)
 end
