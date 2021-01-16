@@ -529,6 +529,8 @@ end
 local function selectBestSlot(bestSlotInfo, currentSlotInfo, stackPriority)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
+    print("Stack Priority: " .. stackPriority)
+
     if bestSlotInfo == nil then
         return currentSlotInfo
     elseif stackPriority == StackPriority.MIN and currentSlotInfo.count < bestSlotInfo.count then
