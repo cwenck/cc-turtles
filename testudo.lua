@@ -295,6 +295,12 @@ end
 -- INVENTORY MANAGEMENT --
 --------------------------
 
+StackType = {
+    EMPTY = "EMPTY",
+    PARTIAL = "PARTIAL",
+    FULL = "FULL"
+}
+
 local function isItemMatch(slotDetails, items)
     if slotDetails == nil then
         return false
@@ -331,21 +337,20 @@ function inspectInventoryContents()
 end
 
 function inspectSlot(slot)
+    slot = util.getOrDefault(slot, turtle.getSelectedSlot())
+    
     local result = {}
     local details = turtle.getItemDetail(slot)
 
     result.slot = slot
     result.count = turtle.getItemCount(slot)
-    result.empty = result.count == 0
-    result.partialStack = false
-    result.fullStack = false
+    result.stackType = StackType.EMPTY
 
     if details ~= nil then
         result.space = turtle.getItemSpace(slot)
         result.maxCount = result.space + result.count
-        result.fullStack = result.space == 0
-        result.partialStack = result.space > 0
         result.name = details.name
+        result.stackType = result.space == 0 ? StackType.FULL : stackType.PARTIAL 
     end
 
     return result
