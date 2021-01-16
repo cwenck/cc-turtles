@@ -266,21 +266,21 @@ function right(count)
 end
 
 -- Place a block of the specified type
-function placeBlock(blocks, stackPriority, stackType)
+function place(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
     if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end
     turtle.place()
 end 
 
-function placeBlockUp(blocks, stackPriority, stackType)
+function placeUp(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
     if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end
     turtle.placeUp()
 end 
 
-function placeBlockDown(blocks, stackPriority, stackType)
+function placeDown(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
     if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end

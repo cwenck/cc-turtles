@@ -22,8 +22,7 @@ local function shouldTorch()
 end
 
 local function placeTorch()
-    testudo.selectSlotWithMinItem("minecraft:torch")
-    turtle.place()
+    testudo.place("minecraft:torch", testudo.StackPriority.MIN)
     turtle.select(1)
 end
 
@@ -81,7 +80,7 @@ local function returnTunnel()
         testudo.forward()
 
         if shouldBridgeDown() then
-            testudo.placeBlockDown(bridgeBlocks, testudo.StackPriority.MIN)
+            testudo.placeDown(bridgeBlocks, testudo.StackPriority.MIN)
         end
     end
     turtle.select(1)
