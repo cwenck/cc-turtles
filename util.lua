@@ -25,7 +25,7 @@ function containsValue(table, value)
     if table == nil then return false end
     if not isTable(table) then return false end
 
-    for _, itemValue in pairs(table)
+    for _, itemValue in pairs(table) do
         if itemValue == value then return true end
     end
 
