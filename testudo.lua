@@ -330,6 +330,27 @@ function inspectInventoryContents()
     return inventory
 end
 
+function inspectSlot(slot)
+    local result = {}
+    local details = turtle.getItemDetail(slot)
+
+    result.slot = slot
+    result.count = turtle.getItemCount(slot)
+    result.empty = result.count == 0
+    result.partialStack = false
+    result.fullStack = false
+
+    if details ~= nil then
+        result.space = turtle.getItemSpace(slot)
+        result.maxCount = result.space + result.count
+        result.fullStack = result.space == 0
+        result.partialStack = result.space > 0
+        result.name = details.name
+    end
+
+    return result
+end
+
 -- Counts the sum of each type of item in the turtle's inventory
 function countItems()
     local inventory = inspectInventoryContents()
