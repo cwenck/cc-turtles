@@ -11,18 +11,22 @@ local args = {...}
 local distance = 100
 local torchFrequency = 7
 
-local function loadApis()
-    os.loadAPI("util.lua")
-    os.loadAPI("testudo.lua")
-end
+-- Load APIs
+os.loadAPI("util.lua")
+os.loadAPI("testudo.lua")
+
+local function selectTorch() {
+    testudo.selectSlotWithMinItem("minecraft:torch")
+}
 
 local function shouldTorch()
-    return testudo.getX() % torchFrequency == 2
+    local hasTorches = testudo.itemCount("minecraft:torch")
+    local correctLocation = testudo.getX() % torchFrequency == 2
+    return hasTorches and correctLocation
 end
 
 local function placeTorch()
-    -- TODO : verify that slot 16 has torches
-    turtle.select(16)
+    testudo.selectSlotWithMinItem("minecraft:torch")
     turtle.placeUp()
     turtle.select(1)
 end
@@ -51,8 +55,6 @@ local function returnTunnel()
 end
 
 local function main()
-    loadApis()
-
     if args[1] ~= nil then
         distance = tonumber(args[1])
     end
