@@ -324,7 +324,7 @@ StackType = {
 }
 
 StackPriority = {
-    MIN = "MIN"
+    MIN = "MIN",
     MAX = "MAX"
 }
 
