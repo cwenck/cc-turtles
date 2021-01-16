@@ -548,6 +548,7 @@ function findSlotWithItem(items, stackPriority, stackType, excludeSlots)
     for _, slotInfo in pairs(inventory) do
         if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
             bestSlotInfo = selectBestSlot(bestSlotInfo, slotInfo, stackType)
+            print(tosring(bestSlotInfo))
         end
     end
 
