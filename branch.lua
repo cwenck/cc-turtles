@@ -31,9 +31,6 @@ local function shouldBridgeUp()
     local foundBlock, _ = turtle.inspectUp()
     -- Detect will only detect solid blocks, so it doesn't detect liquids
     local solidBlock = turtle.detectUp()
-
-    print("Found? " .. tostring(foundBlock) .. " Solid? " .. tostring(solidBlock))
-
     -- Check for flowing liquid
     return foundBlock and not solidBlock
 end
@@ -41,23 +38,6 @@ end
 local function shouldBridgeDown()
     return not turtle.detectDown()
 end
-
--- local function tunnel()
---     local requiredMovement = distance * 2
---     testudo.refuel(requiredMovement)
-
---     while testudo.getX() < distance do
---         turtle.select(1)
---         testudo.forward()
---         testudo.digUp()
-
---         if shouldTorch() then
---             testudo.back()
---             placeTorch()
---             testudo.forward()
---         end
---     end
--- end
 
 local function tunnel()
     testudo.up()
