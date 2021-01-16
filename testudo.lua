@@ -375,6 +375,7 @@ function inspectSlot(slot)
     end
 
     function result:containsOneOf(items)
+        if items == nil then return false end
         items = util.toTable(items)
 
         for _, item in pairs(items) do
@@ -385,6 +386,7 @@ function inspectSlot(slot)
     end
 
     function result:isOneOf(slots)
+        if slots == nil then return false end
         slots = util.toTable(slots)
         return util.containsValue(slots, self.slot)
     end 
@@ -428,15 +430,13 @@ function countItem(item)
 end
 
 function findSlotWithMinItem(items, stackType, excludeSlots)
-    excludeSlots = util.toTable(excludeSlots)
-
     local inventory = inspectSlots()
 
     local minCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo.isOneOf(excludeSlots) then
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
             if minCount == nil or slotInfo.count < minCount then
                 minCount = slotInfo.count
                 bestSlot = slotInfo.slot
@@ -448,15 +448,13 @@ function findSlotWithMinItem(items, stackType, excludeSlots)
 end
 
 function findSlotWithMaxItem(items, stackType, excludeSlots)
-    excludeSlots = util.toTable(excludeSlots)
-
     local inventory = inspectSlots()
 
     local maxCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo.isOneOf(excludeSlots) then
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
             if maxCount == nil or slotInfo.count > maxCount then
                 maxCount = slotInfo.count
                 bestSlot = slotInfo.slot
