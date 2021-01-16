@@ -431,12 +431,17 @@ end
 
 function inventoryItems()
     local inventory = inspectSlots()
-    local itemNames = {}
+    local itemNamesSet = {}
     
     for _, slotInfo in pairs(inventory) do
         if not slotInfo:isEmpty() then
-            table.insert(itemNames, slotInfo.name)
+            itemNamesSet[slotInfo.name] = true
         end
+    end
+
+    local itemNames = {}
+    for _, itemName in pairs(itemNamesSet) do
+        table.insert(itemNames, itemName)
     end
 
     return itemNames
