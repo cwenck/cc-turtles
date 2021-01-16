@@ -336,6 +336,8 @@ function inspectInventoryContents()
     return inventory
 end
 
+-- Inspects the contents of a single turtle inventory slot.
+--   [slot]: the slot to inspect; defaults to the currently selected slot
 function inspectSlot(slot)
     slot = util.getOrDefault(slot, turtle.getSelectedSlot())
     
@@ -354,6 +356,21 @@ function inspectSlot(slot)
     end
 
     return result
+end
+
+-- Inspects the contents of a range of turtle inventory slots.
+--   [staringSlot]: the slot from which to start inspecting (inclusive); defaults to 1
+--   [endingSlot]: the slot from which to end inspecting (inclusive); defaults to 16
+function inspectSlots(startingSlot, endingSlot)
+    startingSlot = util.getOrDetault(startingSlot, 1)
+    endingSlot = util.getOrDetault(endingSlot, 16)
+
+    local contents = {}
+    for slot = startingSlot, endingSlot do
+        contents[slot] = inspectSlot(slot)
+    end
+
+    return contents
 end
 
 -- Counts the sum of each type of item in the turtle's inventory
