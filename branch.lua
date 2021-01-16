@@ -16,7 +16,7 @@ os.loadAPI("util.lua")
 os.loadAPI("testudo.lua")
 
 local function shouldTorch()
-    local hasTorches = testudo.itemCount("minecraft:torch")
+    local hasTorches = testudo.countItem("minecraft:torch")
     local correctLocationForTorch = testudo.getX() % torchFrequency == 2
     return hasTorches and correctLocationForTorch
 end
