@@ -2,9 +2,7 @@
 -- 1) Length of branch mine
 -- 2) Torch frequency
 
--- Turtle Slots
--- Slot 1 = fuel
--- Slot 16 = torches
+-- Fuel and torches can go in any slot
 
 local args = {...}
 
