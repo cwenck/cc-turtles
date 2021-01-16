@@ -58,6 +58,8 @@ end
 -- end
 
 local function tunnel()
+    testudo.up()
+
     while testudo.getX() < distance do
         turtle.select(1)
         testudo.forward()
@@ -72,6 +74,9 @@ local function tunnel()
 end
 
 local function returnTunnel()
+    testudo.right(2)
+    testudo.down()
+
     while testudo.getX() > 0 do
         testudo.forward()
 
@@ -101,8 +106,6 @@ local function main()
 
     testudo.refuel(calculateRequiredFuel())
     tunnel()
-    testudo.right(2)
-    testudo.down()
     returnTunnel()
 end
 
