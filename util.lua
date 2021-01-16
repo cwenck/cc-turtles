@@ -21,6 +21,17 @@ function toTable(value)
     return {value}
 end
 
+function containsValue(table, value)
+    if table == nil then return false end
+    if not isTable(table) then return false end
+
+    for _, itemValue in pairs(table)
+        if itemValue == value then return true end
+    end
+
+    return false
+end
+
 -- Ternary operator shorthand
 function ternary(condition, valueIfTrue, valueIfFalse)
     if condition then

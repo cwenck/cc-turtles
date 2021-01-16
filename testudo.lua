@@ -384,6 +384,11 @@ function inspectSlot(slot)
         return false
     end
 
+    function result::isOneOf(slots)
+        slots = util.toTable(slots)
+        return util.containsValue(slots, self.slot)
+    end 
+
     return result
 end
 
@@ -422,14 +427,16 @@ function countItem(item)
     return util.getOrDefault(countItems()[item], 0)
 end
 
-function findSlotWithMinItem(items, stackType)
+function findSlotWithMinItem(items, stackType, excludeSlots)
+    excludeSlots = util.toTable(excludeSlots)
+
     local inventory = inspectSlots()
 
     local minCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) then
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo.isOneOf(excludeSlots) then
             if minCount == nil or slotInfo.count < minCount then
                 minCount = slotInfo.count
                 bestSlot = slotInfo.slot
@@ -440,14 +447,16 @@ function findSlotWithMinItem(items, stackType)
     return bestSlot
 end
 
-function findSlotWithMaxItem(items, stackType)
+function findSlotWithMaxItem(items, stackType, excludeSlots)
+    excludeSlots = util.toTable(excludeSlots)
+
     local inventory = inspectSlots()
 
     local maxCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) then
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo.isOneOf(excludeSlots) then
             if maxCount == nil or slotInfo.count > maxCount then
                 maxCount = slotInfo.count
                 bestSlot = slotInfo.slot
@@ -480,14 +489,14 @@ function stackItems(items)
 
     for _, item in pairs(items) do        
         local moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
-        local moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
+        local moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL, moveToSlot)
 
-        while moveToSlot and moveFromSlot and moveToSlot ~= moveFromSlot do
+        while moveToSlot and moveFromSlot do
             turtle.select(moveFromSlot)
             turtle.transferTo(moveToSlot)
 
             moveToSlot = findSlotWithMaxItem(item, StackType.PARTIAL)
-            moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL)
+            moveFromSlot = findSlotWithMinItem(item, StackType.PARTIAL, moveToSlot)
         end
     end
 
