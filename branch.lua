@@ -8,6 +8,8 @@ local args = {...}
 
 local distance = 100
 local torchFrequency = 7
+local buildBridge = true
+local bridgeBlocks = {"minecraft:cobblestone"}
 
 -- Load APIs
 os.loadAPI("util.lua")
@@ -15,29 +17,56 @@ os.loadAPI("testudo.lua")
 
 local function shouldTorch()
     local hasTorches = testudo.itemCount("minecraft:torch")
-    local correctLocation = testudo.getX() % torchFrequency == 2
-    return hasTorches and correctLocation
+    local correctLocationForTorch = testudo.getX() % torchFrequency == 2
+    return hasTorches and correctLocationForTorch
 end
 
 local function placeTorch()
     testudo.selectSlotWithMinItem("minecraft:torch")
-    turtle.placeUp()
+    turtle.place()
     turtle.select(1)
 end
 
-local function tunnel()
-    local requiredMovement = distance * 2
-    testudo.refuel(requiredMovement)
+local function shouldBridgeUp() 
+    -- Inspect will return false only for air blocks, but will still detect flowing liquids
+    local foundBlock, _ = turtle.inspectUp()
+    -- Detect will only detect solid blocks, so it doesn't detect liquids
+    local solidBlock = turtle.detectUp()
+    -- Check for flowing liquid
+    return foundBlock and not solidBlock
+end
 
+local function shouldBridgeDown()
+    return not turtle.detectDown()
+end
+
+-- local function tunnel()
+--     local requiredMovement = distance * 2
+--     testudo.refuel(requiredMovement)
+
+--     while testudo.getX() < distance do
+--         turtle.select(1)
+--         testudo.forward()
+--         testudo.digUp()
+
+--         if shouldTorch() then
+--             testudo.back()
+--             placeTorch()
+--             testudo.forward()
+--         end
+--     end
+-- end
+
+local function tunnel()
     while testudo.getX() < distance do
         turtle.select(1)
         testudo.forward()
-        testudo.digUp()
+        testudo.digDown()
 
         if shouldTorch() then
-            testudo.back()
+            testudo.right(2)
             placeTorch()
-            testudo.forward()
+            testudo.right(2)
         end
     end
 end
@@ -45,7 +74,18 @@ end
 local function returnTunnel()
     while testudo.getX() > 0 do
         testudo.forward()
+
+        if shouldBridgeDown() then
+            testudo.placeBlockDown(bridgeBlocks, testudo.StackPriority.MIN)
+        end
     end
+    turtle.select(1)
+end
+
+local function calculateRequiredFuel()
+    -- Up at begining of tunnel, down at end of tunnel, so 2 extra movements
+    local extraMovements = 2
+    return (distance * 2) + extraMovements
 end
 
 local function main()
@@ -59,9 +99,10 @@ local function main()
 
     print("Starting branch of length " .. distance)
 
+    testudo.refuel(calculateRequiredFuel())
     tunnel()
-    testudo.right()
-    testudo.right()
+    testudo.right(2)
+    testudo.down()
     returnTunnel()
 end
 

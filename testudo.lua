@@ -265,6 +265,28 @@ function right(count)
     end
 end
 
+-- Place a block of the specified type
+function placeBlock(blocks, stackPriority, stackType)
+    stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
+
+    if not selectSlotWithItem() then return false end
+    turtle.place()
+end 
+
+function placeBlockUp(blocks, stackPriority, stackType)
+    stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
+
+    if not selectSlotWithItem() then return false end
+    turtle.place()
+end 
+
+function placeBlockDown(blocks, stackPriority, stackType)
+    stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
+
+    if not selectSlotWithItem() then return false end
+    turtle.place()
+end 
+
 function resetPosition()
     xOffset = 0
     yOffset = 0
@@ -299,6 +321,11 @@ StackType = {
     EMPTY = "EMPTY",
     PARTIAL = "PARTIAL",
     FULL = "FULL"
+}
+
+StackPriority = {
+    MIN = "MIN"
+    MAX = "MAX"
 }
 
 local function isItemMatch(slotInfo, items)
@@ -497,6 +524,40 @@ function selectSlotWithMaxItem(items, stackType)
     if slot ~= nil then
         turtle.select(slot)
     end
+end
+
+local function selectBestSlot(bestSlotInfo, currentSlotInfo, stackPriority)
+    stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
+
+    if bestSlotInfo == nil then return currentSlotInfo end
+    if stackPriority == StackPriority.MIN and currentSlotInfo.count < bestSlotInfo.count then
+        return currentSlotInfo
+    elseif stackPriority == StackPriority.MAX and currentSlotInfo.count > bestSlotInfo.count then
+        return currentSlotInfo
+    end
+end
+
+function findSlotWithItem(items, stackPriority, stackType)    
+    local inventory = inspectSlots()
+    local bestSlotInfo = nil
+
+    for _, slotInfo in pairs(inventory) do
+        if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
+            bestSlotInfo = selectBestSlot(bestSlotInfo, slotInfo, stackType)
+        end
+    end
+
+    return bestSlotInfo
+end
+
+function selectSlotWithItem(items, stackPriority, stackType)
+    local slot = findSlotWithItem(items, stackPriority, stackType)
+    if slot then
+        turtle.select(slot)
+        return true
+    end
+
+    return false
 end
 
 function stackItems(items)
