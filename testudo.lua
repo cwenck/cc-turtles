@@ -440,7 +440,7 @@ function inventoryItems()
     end
 
     local itemNames = {}
-    for _, itemName in pairs(itemNamesSet) do
+    for itemName, _ in pairs(itemNamesSet) do
         table.insert(itemNames, itemName)
     end
 
