@@ -560,9 +560,9 @@ function findSlotWithItem(items, stackPriority, stackType, excludeSlots)
 end
 
 function selectSlotWithItem(items, stackPriority, stackType, excludeSlots)
-    local slot = findSlotWithItem(items, stackPriority, stackType, excludeSlots)
-    if slot then
-        turtle.select(slot)
+    local slotInfo = findSlotWithItem(items, stackPriority, stackType, excludeSlots)
+    if slotInfo then
+        turtle.select(slotInfo.slot)
         return true
     end
 
