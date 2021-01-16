@@ -550,7 +550,6 @@ function findSlotWithItem(items, stackPriority, stackType, excludeSlots)
     print("Find slot")
 
     for _, slotInfo in pairs(inventory) do
-        print("For loop: " .. tostring(slotInfo))
         if slotInfo:containsOneOf(items) and slotInfo:isStackOfType(stackType) and not slotInfo:isOneOf(excludeSlots) then
             print("Within if")
             bestSlotInfo = selectBestSlot(bestSlotInfo, slotInfo, stackPriority)
