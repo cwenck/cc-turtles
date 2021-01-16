@@ -301,13 +301,15 @@ StackType = {
     FULL = "FULL"
 }
 
-local function isItemMatch(slotDetails, items)
-    if slotDetails == nil then
+local function isItemMatch(slotInfo, items)
+    items = util.toTable(items)
+
+    if slotInfo == nil then
         return false
     end
 
     for _, item in pairs(items) do
-        if slotDetails.name == item then
+        if slotInfo.name == item then
             return true
         end
     end
@@ -405,16 +407,16 @@ function countItem(item)
     return util.getOrDefault(countItems()[item], 0)
 end
 
-function findSlotWithMinItem(item)
-    local inventory = inspectInventoryContents()
+function findSlotWithMinItem(items)
+    local inventory = inspectSlots()
 
     local minCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if isItemMatch(slotInfo.details, util.toTable(item)) then
-            if minCount == nil or slotInfo.details.count < minCount then
-                minCount = slotInfo.details.count
+        if isItemMatch(slotInfo, items) then
+            if minCount == nil or slotInfo.count < minCount then
+                minCount = slotInfo.count
                 bestSlot = slotInfo.slot
             end
         end
@@ -423,16 +425,16 @@ function findSlotWithMinItem(item)
     return bestSlot
 end
 
-function findSlotWithMaxItem(item)
-    local inventory = inspectInventoryContents()
+function findSlotWithMaxItem(items)
+    local inventory = inspectSlots()
 
     local maxCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if isItemMatch(slotInfo.details, util.toTable(item)) then
-            if maxCount == nil or slotInfo.details.count > maxCount then
-                maxCount = slotInfo.details.count
+        if isItemMatch(slotInfo, items) then
+            if maxCount == nil or slotInfo.count > maxCount then
+                maxCount = slotInfo.count
                 bestSlot = slotInfo.slot
             end
         end
