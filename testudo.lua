@@ -269,22 +269,22 @@ end
 function placeBlock(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
-    if not selectSlotWithItem() then return false end
+    if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end
     turtle.place()
 end 
 
 function placeBlockUp(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
-    if not selectSlotWithItem() then return false end
-    turtle.place()
+    if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end
+    turtle.placeUp()
 end 
 
 function placeBlockDown(blocks, stackPriority, stackType)
     stackPriority = util.getOrDefault(stackPriority, StackPriority.MIN)
 
-    if not selectSlotWithItem() then return false end
-    turtle.place()
+    if not selectSlotWithItem(blocks, stackPriority, stackType) then return false end
+    turtle.placeDown()
 end 
 
 function resetPosition()
