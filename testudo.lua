@@ -362,8 +362,8 @@ end
 --   [staringSlot]: the slot from which to start inspecting (inclusive); defaults to 1
 --   [endingSlot]: the slot from which to end inspecting (inclusive); defaults to 16
 function inspectSlots(startingSlot, endingSlot)
-    startingSlot = util.getOrDetault(startingSlot, 1)
-    endingSlot = util.getOrDetault(endingSlot, 16)
+    startingSlot = util.getOrDefault(startingSlot, 1)
+    endingSlot = util.getOrDefault(endingSlot, 16)
 
     local contents = {}
     for slot = startingSlot, endingSlot do
