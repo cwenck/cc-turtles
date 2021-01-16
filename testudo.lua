@@ -473,3 +473,22 @@ function selectSlotWithMaxItem(items, stackType)
         turtle.select(slot)
     end
 end
+
+function stackItems(items)
+    items = util.toTable(items)
+
+    for _, item in pairs(items) do        
+        local moveToSlot = findSlotWithMaxItem(item, SlotType.PARTIAL)
+        local moveFromSlot = findSlotWithMinItem(item, SlotType.PARTIAL)
+
+        while moveToSlot == nil or moveFromSlot == nil or moveToSlot == moveFromSlot do
+            local originalSlot = turtle.getSelectedSlot()
+            turtle.selectSlot(moveFromSlot)
+            turtle.transferTo(moveToSlot)
+            turtle.selectSlot(originalSlot)
+
+            moveToSlot = findSlotWithMaxItem(item, SlotType.PARTIAL)
+            moveFromSlot = findSlotWithMinItem(item, SlotType.PARTIAL)
+        end
+    end
+end
