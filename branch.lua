@@ -15,10 +15,6 @@ local torchFrequency = 7
 os.loadAPI("util.lua")
 os.loadAPI("testudo.lua")
 
-local function selectTorch() {
-    testudo.selectSlotWithMinItem("minecraft:torch")
-}
-
 local function shouldTorch()
     local hasTorches = testudo.itemCount("minecraft:torch")
     local correctLocation = testudo.getX() % torchFrequency == 2
