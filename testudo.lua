@@ -369,6 +369,21 @@ function inspectSlot(slot)
         return result.stackType == StackType.FULL
     end
 
+    function result.isStackOfType(stackType)
+        if stackType == nil then return false end
+        return result.stackType == stackType
+    end
+
+    function result.containsOneOf(items)
+        items = util.toTable(items)
+
+        for _, item in pairs(items) do
+            if slotInfo.name == item then return true end
+        end
+
+        return false
+    end
+
     return result
 end
 
@@ -407,14 +422,14 @@ function countItem(item)
     return util.getOrDefault(countItems()[item], 0)
 end
 
-function findSlotWithMinItem(items)
+function findSlotWithMinItem(items, stackType)
     local inventory = inspectSlots()
 
     local minCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if isItemMatch(slotInfo, items) then
+        if slotInfo.containsOneOf(items) and slotInfo.isStackOfType(stackType) then
             if minCount == nil or slotInfo.count < minCount then
                 minCount = slotInfo.count
                 bestSlot = slotInfo.slot
@@ -425,14 +440,14 @@ function findSlotWithMinItem(items)
     return bestSlot
 end
 
-function findSlotWithMaxItem(items)
+function findSlotWithMaxItem(items, stackType)
     local inventory = inspectSlots()
 
     local maxCount = nil
     local bestSlot = nil
 
     for _, slotInfo in pairs(inventory) do
-        if isItemMatch(slotInfo, items) then
+        if slotInfo.containsOneOf(items) and slotInfo.isStackOfType(stackType) then
             if maxCount == nil or slotInfo.count > maxCount then
                 maxCount = slotInfo.count
                 bestSlot = slotInfo.slot
@@ -443,16 +458,16 @@ function findSlotWithMaxItem(items)
     return bestSlot
 end
 
-function selectSlotWithMinItem(item)
-    local slot = findSlotWithMinItem(item)
+function selectSlotWithMinItem(items, stackType)
+    local slot = findSlotWithMinItem(items, stackType)
 
     if slot ~= nil then
         turtle.select(slot)
     end
 end
 
-function selectSlotWithMaxItem(item)
-    local slot = findSlotWithMaxItem(item)
+function selectSlotWithMaxItem(items, stackType)
+    local slot = findSlotWithMaxItem(items, stackType)
 
     if slot ~= nil then
         turtle.select(slot)
