@@ -31,6 +31,9 @@ local function shouldBridgeUp()
     local foundBlock, _ = turtle.inspectUp()
     -- Detect will only detect solid blocks, so it doesn't detect liquids
     local solidBlock = turtle.detectUp()
+
+    print("Found? " .. tostring(foundBlock) .. " Solid? " .. tostring(solidBlock))
+
     -- Check for flowing liquid
     return foundBlock and not solidBlock
 end
