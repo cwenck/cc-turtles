@@ -355,6 +355,18 @@ function inspectSlot(slot)
         result.stackType = util.ternary(result.space == 0, StackType.FULL, StackType.PARTIAL)
     end
 
+    function result.isEmpty()
+        return result.stackType == StackType.EMPTY
+    end
+
+    function result.isPartialStack()
+        return result.stackType == StackType.PARTIAL
+    end
+
+    function result.isFullStack()
+        return result.stackType == StackType.FULL
+    end
+
     return result
 end
 
