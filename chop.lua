@@ -27,7 +27,7 @@ local function descend()
     end
     testudo.dig()
     testudo.collectDroppedItems()
-    testudo.backward()
+    testudo.back()
 end
 
 local function main()
