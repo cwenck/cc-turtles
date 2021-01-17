@@ -58,7 +58,7 @@ local function waitForEnterKeyPress()
     end
 end
 
-local function collectDroppedItems()
+function collectDroppedItems()
     turtle.suckUp()
     turtle.suck()
     turtle.suckDown()
