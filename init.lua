@@ -4,7 +4,7 @@ local programs = {
     "testudo",
     "util",
     "branch",
-    "chop"
+    "chop",
     "web",
     "init"
 }
