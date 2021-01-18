@@ -1,6 +1,6 @@
 local programs = {
     -- "branch-miner",
-    "digger",
+    "old-digger",
     "testudo",
     "util",
     "branch",
