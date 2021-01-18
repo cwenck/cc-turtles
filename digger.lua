@@ -65,14 +65,15 @@ end
 
 local function digTrippleRow()
     print("Digging row")
-    repeat
+
+    for block = 1, xSize do
         testudo.digUp()
         testudo.digDown()
-        testudo.forward()
-    until isAtBoundX()
 
-    testudo.digUp()
-    testudo.digDown()
+        if block < xSize then
+            testudo.forward()
+        end
+    end
 end
 
 local function digTrippleLayer()
