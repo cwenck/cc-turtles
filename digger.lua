@@ -7,9 +7,10 @@ local zSize = 0
 local ySize = 0
 
 local Direction = {
-    RIGHT = "r"
+    RIGHT = "r",
     LEFT = "l"
 }
+
 local direction = Direction.LEFT
 
 -- Load APIs
