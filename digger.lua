@@ -11,7 +11,7 @@ local Direction = {
     LEFT = "l"
 }
 
-local facing = Direction.LEFT
+local facing = Direction.RIGHT
 
 -- Load APIs
 os.loadAPI("util.lua")
@@ -101,6 +101,10 @@ local function main()
 
     if args[3] ~= nil then
         ySize = tonumber(args[3])
+    end
+
+    if args[4] ~= nil then
+        facing = args[4]
     end
 
     testudo.down()
