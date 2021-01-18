@@ -51,8 +51,8 @@ end
 -- Wait for the enter key to be pressed.
 local function waitForEnterKeyPress()
     while true do
-        local event, peram = os.pullEvent("key")
-        if event == "key" and peram == 28 then
+        local _, key = os.pullEvent("key")
+        if keys.getName(key) == "enter" then
             break
         end
     end
