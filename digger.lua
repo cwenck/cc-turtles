@@ -38,7 +38,7 @@ local function digTrippleLayer()
             testudo.digUp()
             testudo.digDown()
             testudo.forward()
-        until not isAtBoundX()
+        until isAtBoundX()
 
         testudo.digUp()
         testudo.digDown()
@@ -58,6 +58,8 @@ local function main()
         ySize = tonumber(args[3])
     end
 
+    testudo.down()
+    testudo.down()
     digTrippleLayer()
 end
 
