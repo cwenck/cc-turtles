@@ -78,21 +78,22 @@ end
 local function digTrippleLayer()
     print("Dig layer")
     local rowNum = 0
-    local shouldMoveOver = false
 
-    repeat
+    while true do
         print("row num = " .. tostring(rowNum))
         print("move over? " .. tostring(shouldMoveOver))
-        if shouldMoveOver then
-            moveOver(rowNum)
-        end
         
         digTrippleRow()
         rowNum = rowNum +  1
         shouldMoveOver = true
 
         print("z: " .. testudo.getZ())
-    until isAtBoundZ()
+        if isAtBoundZ() then
+            break
+        else
+            moveOver()
+        end
+    end 
 end
 
 local function main()
