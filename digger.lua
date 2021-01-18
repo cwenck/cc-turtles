@@ -64,6 +64,7 @@ local function moveOver(rowNumber)
 end
 
 local function digTrippleRow()
+    print("Digging row")
     repeat
         testudo.digUp()
         testudo.digDown()
@@ -75,12 +76,15 @@ local function digTrippleRow()
 end
 
 local function digTrippleLayer()
+    print("Dig layer")
     local rowNum = 0
     local shouldMoveOver = false
 
     repeat
+        print("row num = " .. tostring(rowNum))
+        print("move over? " .. tostring(shouldMoveOver))
         if shouldMoveOver then
-            moveOver()
+            moveOver(rowNum)
         end
         
         digTrippleRow()
