@@ -68,7 +68,7 @@ local function digTrippleRow()
         testudo.digUp()
         testudo.digDown()
         testudo.forward()
-    until isAtBoundX()
+    until isAtBoundZ()
 
     testudo.digUp()
     testudo.digDown()
