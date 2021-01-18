@@ -46,16 +46,16 @@ end
 
 local function moveOver(rowNumber)
     local rowMod = rowNumber % 2
-    local evenRow = rowMod == 0
+    local oddRow = rowMod == 1
 
     if facing == Direction.RIGHT then
-        if evenRow then
+        if oddRow then
             moveOverRight() 
         else
             moveOverLeft()
         end
     elseif facing == Direction.LEFT then
-        if evenRow then
+        if oddRow then
             moveOverLeft()
         else
             moveOverRight() 
@@ -77,21 +77,15 @@ end
 
 local function digTrippleLayer()
     print("Dig layer")
-    local rowNum = 0
 
-    while true do
+    for rowNum = 1, zSize do
         print("row num = " .. tostring(rowNum))
         print("move over? " .. tostring(shouldMoveOver))
         
         digTrippleRow()
-        rowNum = rowNum +  1
-        shouldMoveOver = true
 
-        print("z: " .. testudo.getZ())
-        if isAtBoundZ() then
-            break
-        else
-            moveOver()
+        if rowNum < zSize then
+            moveOver(rowNum)
         end
     end 
 end
