@@ -85,7 +85,7 @@ local function digRow(layerHight)
 end
 
 local function digLayer(layerHight)
-    if layerHight = LayerHight.THREE then testudo.down() end
+    if layerHight == LayerHight.THREE then testudo.down() end
     testudo.down()
 
     for rowNum = 1, zSize do
