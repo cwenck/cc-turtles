@@ -85,7 +85,7 @@ local function digTrippleLayer()
             moveOver()
         end
         
-        digTrippleTunnel()
+        digTrippleRow()
         rowNum = rowNum +  1
         shouldMoveOver = true
     until isAtBoundZ()
