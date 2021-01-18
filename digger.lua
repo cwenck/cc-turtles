@@ -11,7 +11,7 @@ local Direction = {
     LEFT = "l"
 }
 
-local direction = Direction.LEFT
+local facing = Direction.LEFT
 
 -- Load APIs
 os.loadAPI("util.lua")
@@ -32,17 +32,63 @@ local function isAtBoundZ()
     return z == 0 or z == (zSize - 1)
 end
 
-local function digTrippleLayer()
-    -- while not isAtBoundX() and not isAtBoundZ() do
-        repeat
-            testudo.digUp()
-            testudo.digDown()
-            testudo.forward()
-        until isAtBoundX()
+local function moveOverRight()
+    testudo.right()
+    testudo.forward()
+    testudo.right()
+end
 
+local function moveOverLeft()
+    testudo.left()
+    testudo.forward()
+    testudo.left()
+end
+
+local function moveOver(rowNumber)
+    local rowMod = rowNumber % 2
+    local evenRow = rowMod == 0
+
+    if facing == Direction.RIGHT then
+        if evenRow then
+            moveOverRight() 
+        else
+            moveOverLeft()
+        end
+    elseif facing == Direction.LEFT then
+        if evenRow then
+            moveOverLeft()
+        else
+            moveOverRight() 
+        end
+    end
+end
+
+local function digTrippleRow()
+    repeat
         testudo.digUp()
         testudo.digDown()
-    -- end
+        testudo.forward()
+
+        rowNum += 1
+    until isAtBoundX()
+
+    testudo.digUp()
+    testudo.digDown()
+end
+
+local function digTrippleLayer()
+    local rowNum = 0
+    local shouldMoveOver = false
+
+    repeat
+        if shouldMoveOver then
+            moveOver()
+        end
+        
+        digTrippleTunnel()
+        rowNum = rowNum +  1
+        shouldMoveOver = true
+    until isAtBoundZ()
 end
 
 local function main()
