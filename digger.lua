@@ -69,7 +69,7 @@ local function digTrippleRow()
         testudo.digDown()
         testudo.forward()
 
-        rowNum += 1
+        rowNum = rowNum + 1
     until isAtBoundX()
 
     testudo.digUp()
