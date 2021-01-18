@@ -18,17 +18,17 @@ os.loadAPI("util.lua")
 os.loadAPI("testudo.lua")
 
 local function isAtBoundX()
-    local x = testudo.getX()
+    local x = math.abs(testudo.getX())
     return x == 0 or x == (xSize - 1)
 end
 
 local function isAtBoundY()
-    local y = testudo.getY()
+    local y = math.abs(testudo.getY())
     return y == 0 or y == (ySize - 1)
 end
 
 local function isAtBoundZ()
-    local z = testudo.getZ()
+    local z = math.abs(testudo.getZ())
     return z == 0 or z == (zSize - 1)
 end
 
