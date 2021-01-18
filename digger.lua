@@ -90,6 +90,8 @@ local function digTrippleLayer()
         digTrippleRow()
         rowNum = rowNum +  1
         shouldMoveOver = true
+
+        print("z: " .. testudo.getZ())
     until isAtBoundZ()
 end
 
