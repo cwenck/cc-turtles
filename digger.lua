@@ -11,6 +11,12 @@ local Direction = {
     LEFT = "l"
 }
 
+local LayerHight = {
+    ONE = 1,
+    TWO = 2,
+    THREE = 3
+}
+
 local facing = Direction.RIGHT
 
 -- Load APIs
@@ -63,32 +69,40 @@ local function moveOver(rowNumber)
     end
 end
 
-local function digTrippleRow()
-    print("Digging row")
-
+local function digRow(layerHight)
     for block = 1, xSize do
-        testudo.digUp()
-        testudo.digDown()
-
+        if layerHight == LayerHight.THREE then
+            testudo.digUp()
+            testudo.digDown()
+        elseif layerHight == LayerHight.TWO then
+            testudo.digDown()
+        end
+            
         if block < xSize then
             testudo.forward()
         end
     end
 end
 
-local function digTrippleLayer()
-    print("Dig layer")
+local function digLayer(layerHight)
+    if layerHight = LayerHight.THREE then testudo.down() end
+    testudo.down()
 
     for rowNum = 1, zSize do
-        print("row num = " .. tostring(rowNum))
-        print("move over? " .. tostring(shouldMoveOver))
-        
-        digTrippleRow()
+        digRow()
 
         if rowNum < zSize then
             moveOver(rowNum)
         end
-    end 
+    end
+end
+
+local function digLayers()
+    for layerNum = 1, ySize do
+        local layersRemaining = layerNum - ySize 
+        local layerHight = math.max(layersRemaining, 3)
+        digLayer(layerHight)
+    end
 end
 
 local function main()
@@ -108,9 +122,7 @@ local function main()
         facing = args[4]
     end
 
-    testudo.down()
-    testudo.down()
-    digTrippleLayer()
+    digLayers()
 end
 
 main()
