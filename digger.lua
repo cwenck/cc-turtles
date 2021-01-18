@@ -34,11 +34,11 @@ end
 
 local function digTrippleLayer()
     -- while not isAtBoundX() and not isAtBoundZ() do
-        while not isAtBoundX() do
+        repeat
             testudo.digUp()
             testudo.digDown()
             testudo.forward()
-        end
+        until not isAtBoundX()
 
         testudo.digUp()
         testudo.digDown()
