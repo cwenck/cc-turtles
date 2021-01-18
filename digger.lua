@@ -18,15 +18,18 @@ os.loadAPI("util.lua")
 os.loadAPI("testudo.lua")
 
 local function isAtBoundX()
-    
+    local x = testudo.getX()
+    return x == 0 or x == xSize
 end
 
 local function isAtBoundY()
-    
+    local y = testudo.getY()
+    return y == 0 or y == ySize
 end
 
 local function isAtBoundZ()
-
+    local z = testudo.getZ()
+    return z == 0 or z == zSize
 end
 
 local function digTrippleLayer()
