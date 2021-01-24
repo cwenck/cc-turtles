@@ -20,13 +20,13 @@ end
 function pushAll(fromInventory, intoInventory)
     itemContents = fromInventory.list()
     for slot in pairs(itemContents) do
-        pushItems(fromInventory, intoInventory, fromSlot)
+        pushItems(fromInventory, intoInventory, slot)
     end
 end
 
 function pullAll(fromInventory, intoInventory)
     itemContents = fromInventory.list()
     for slot in pairs(itemContents) do
-        pullItems(fromInventory, intoInventory, fromSlot)
+        pullItems(fromInventory, intoInventory, slot)
     end
 end
