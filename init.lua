@@ -1,5 +1,5 @@
 local programs = {
-    "redstone-move"
+    "redstone-move",
     "old-digger",
     "digger",
     "branch",
