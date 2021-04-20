@@ -109,7 +109,7 @@ function refuel(threshold)
         if not hasFuel(threshold) then
             -- No fuel in turtle
             print("In need of fuel.")
-            print("Press enter to continue...")
+            print("Insert fuel to continue...")
             waitForInventoryChange()
         end
     end
