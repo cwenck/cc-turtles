@@ -58,6 +58,10 @@ local function waitForEnterKeyPress()
     end
 end
 
+local function waitForInventoryChange()
+    os.pullEvent("turtle_inventory")
+end
+
 function collectDroppedItems()
     turtle.suckUp()
     turtle.suck()
@@ -106,7 +110,7 @@ function refuel(threshold)
             -- No fuel in turtle
             print("In need of fuel.")
             print("Press enter to continue...")
-            waitForEnterKeyPress()
+            waitForInventoryChange()
         end
     end
 
